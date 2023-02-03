@@ -3,12 +3,17 @@ import os
 import sys
 
 
-def load_image(name, colorkey=None):
-    fullname = os.path.join('data', name)
+def load_image(name, hero_name=None, flipped=0, colorkey=None):
+    if not hero_name:
+        fullname = os.path.join('data', name)
+    else:
+        fullname = os.path.join('data', hero_name, name)
     if not os.path.isfile(fullname):
         print(f'Файл {name} не найден')
         sys.exit()
     image = pygame.image.load(fullname)
+    if flipped == 1:
+        pygame.transform.flip(image, True, False)
     if colorkey is None:
         image = image.convert_alpha()
     elif colorkey == -1:
@@ -16,20 +21,4 @@ def load_image(name, colorkey=None):
     else:
         image.set_colorkey(colorkey)
     return image
-
-
-if __name__ == '__main__':
-    pygame.init()
-    size = width, height = 500, 500
-    screen = pygame.display.set_mode(size)
-    image = load_image("bomb.png")
-    running = True
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-        screen.fill('black')
-        screen.blit(image, (250, 250))
-        pygame.display.flip()
-    pygame.quit()
 

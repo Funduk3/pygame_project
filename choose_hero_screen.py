@@ -4,7 +4,6 @@ import sys
 import os
 
 FPS = 50
-
 pygame.init()
 size = width, height = 800, 450
 screen = pygame.display.set_mode(size)
@@ -12,20 +11,54 @@ all_sprites = pygame.sprite.Group()
 clock = pygame.time.Clock()
 objects = []
 
-f1 = pygame.font.Font('C:/Коды/pygame/data/joystix monospace.ttf', 36)
-text1 = f1.render('Выбери персонажа', True,
-                  (180, 0, 0))
+pygame.draw.line(screen, pygame.Color('red'), (130, 400), (230, 400), width=5)
+pygame.draw.line(screen, pygame.Color('red'), (130, 300), (230, 300), width=5)
+pygame.draw.line(screen, pygame.Color('red'), (130, 400), (130, 300), width=5)
+pygame.draw.line(screen, pygame.Color('red'), (230, 400), (230, 300), width=5)
 
-background = pygame.transform.scale(load_image("C:\Коды\pygame\data\started_screen\context.jpg"), (800, 450))
-aizen_ava = pygame.transform.scale(load_image("C:\Коды\pygame\data\started_screen\Aizen_ava.jpg"), (100, 100))
-madara_ava = pygame.transform.scale(load_image("C:\Коды\pygame\data\started_screen\madara_ava.png"), (100, 100))
-dio_ava = pygame.transform.scale(load_image("C:\Коды\pygame\data\started_screen\dio_ava.jpg"), (100, 100))
-eren_ava = pygame.transform.scale(load_image("C:\Коды\pygame\data\started_screen\eren_ava.jpg"), (100, 100))
-example = pygame.transform.scale(load_image("C:\Коды\pygame\data\started_screen\meruem.jpg"), (100, 100))
-sound_of = pygame.transform.scale(load_image("C:\Коды\pygame\data\started_screen\sound_of.png"), (40, 40))
-sound_on = pygame.transform.scale(load_image("C:\Коды\pygame\data\started_screen\sound_on.png"), (40, 40))
+pygame.draw.line(screen, pygame.Color('red'), (240, 400), (340, 400), width=5)
+pygame.draw.line(screen, pygame.Color('red'), (240, 300), (340, 300), width=5)
+pygame.draw.line(screen, pygame.Color('red'), (240, 400), (240, 300), width=5)
+pygame.draw.line(screen, pygame.Color('red'), (340, 400), (340, 300), width=5)
 
-pygame.mixer.music.load('C:\Коды\pygame\data\data_main_fight_sound.mp3')
+pygame.draw.line(screen, pygame.Color('red'), (350, 400), (450, 400), width=5)
+pygame.draw.line(screen, pygame.Color('red'), (350, 300), (450, 300), width=5)
+pygame.draw.line(screen, pygame.Color('red'), (350, 400), (350, 300), width=5)
+pygame.draw.line(screen, pygame.Color('red'), (450, 400), (450, 300), width=5)
+
+pygame.draw.line(screen, pygame.Color('red'), (460, 400), (560, 400), width=5)
+pygame.draw.line(screen, pygame.Color('red'), (460, 300), (560, 300), width=5)
+pygame.draw.line(screen, pygame.Color('red'), (460, 400), (460, 300), width=5)
+pygame.draw.line(screen, pygame.Color('red'), (560, 400), (560, 300), width=5)
+
+pygame.draw.line(screen, pygame.Color('red'), (570, 400), (670, 400), width=5)
+pygame.draw.line(screen, pygame.Color('red'), (570, 300), (670, 300), width=5)
+pygame.draw.line(screen, pygame.Color('red'), (570, 400), (570, 300), width=5)
+pygame.draw.line(screen, pygame.Color('red'), (670, 400), (670, 300), width=5)
+f1 = pygame.font.Font('data/joystix monospace.ttf', 36)
+text1 = f1.render('Выбери персонажа', True, (180, 0, 0))
+
+background = pygame.transform.scale(load_image("context.jpg", hero_name='started_screen'), (800, 450))
+aizen_ava = pygame.transform.scale(load_image("Aizen_ava.jpg", hero_name='started_screen'), (100, 100))
+madara_ava = pygame.transform.scale(load_image("madara_ava.png", hero_name='started_screen'), (100, 100))
+dio_ava = pygame.transform.scale(load_image("dio_ava.jpg", hero_name='started_screen'), (100, 100))
+eren_ava = pygame.transform.scale(load_image("eren_ava.jpg", hero_name='started_screen'), (100, 100))
+example = pygame.transform.scale(load_image("meruem.jpg", hero_name='started_screen'), (100, 100))
+sound_of = pygame.transform.scale(load_image("sound_of.jpg", hero_name='started_screen', colorkey=-1), (40, 40))
+sound_on = pygame.transform.scale(load_image("sound_on.jpg", hero_name='started_screen', colorkey=-1), (40, 40))
+
+aizen_rect = aizen_ava.get_rect()
+aizen_rect.x, aizen_rect.y = 100, 100
+
+madara_rect = madara_ava.get_rect()
+madara_rect.x, madara_rect.y = 100, 100
+
+dio_rect = dio_ava.get_rect()
+dio_rect.x, dio_rect.y = 100, 100
+
+eren_rect = eren_ava.get_rect()
+eren_rect.x, eren_rect.y = 100, 100
+pygame.mixer.music.load('data/main_fight_sound.mp3')
 
 screen.blit(background, (0, 0))
 screen.blit(aizen_ava, (130, 300))
@@ -36,6 +69,7 @@ screen.blit(example, (570, 300))
 screen.blit(text1, (150, 10))
 
 pygame.mixer.music.play()
+
 
 def pers1_rect(color):
     pygame.draw.line(screen, pygame.Color(color), (130, 400), (230, 400), width=5)
@@ -167,4 +201,5 @@ while running:
     clock.tick(30)
     all_sprites.draw(screen)
     pygame.display.flip()
+pygame.quit()
 pygame.quit()

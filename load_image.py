@@ -13,7 +13,7 @@ def load_image(name, hero_name=None, flipped=0, colorkey=None):
         sys.exit()
     image = pygame.image.load(fullname)
     if flipped == 1:
-        pygame.transform.flip(image, True, False)
+        image = pygame.transform.flip(image, True, False)
     if colorkey is None:
         image = image.convert_alpha()
     elif colorkey == -1:

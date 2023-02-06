@@ -1,339 +1,118 @@
 import pygame
 from load_image import load_image
+from Character_main import MainCharacter
 
 FPS = 50
 
 
-class Dio(pygame.sprite.Sprite):
+class Dio(MainCharacter):
     def __init__(self, *group):
         super().__init__(*group)
-        self.base = load_image("C:\Коды\pygame\data\Dio\dio_stance.png", colorkey=-1)
+        self.base = load_image("dio_stance.png", hero_name='Dio', colorkey=-1)
         self.image = self.base
-        self.rect = self.image.get_rect()
-        self.rect.x = 0
-        self.rect.y = 0
-        self.count = -1
-        self.is_stand = False
-        self.is_jumping = False
-        self.is_guarding = False
-        self.is_walking = False
-        self.is_intro = False
-        self.is_losing = False
-        self.is_winning = False
-        self.is_ulting = False
-        self.is_damaged = False
-        self.is_flipped = False
-        self.rect = self.image.get_rect()
 
-    def stand(self):
-        self.is_stand = True
+        self.images = {
+            0: {'base': load_image("dio_stance.png", hero_name='Dio', colorkey=-1),
 
-    def jump(self):
-        self.is_jumping = True
+                'jump': [load_image('dio_jump_1.png', hero_name='Dio', colorkey=-1),
+                         load_image('dio_jump_2.png', hero_name='Dio', colorkey=-1),
+                         load_image('dio_jump_3.png', hero_name='Dio', colorkey=-1),
+                         load_image('dio_jump_4.png', hero_name='Dio', colorkey=-1),
+                         load_image('dio_jump_5.png', hero_name='Dio', colorkey=-1),
+                         load_image('dio_jump_5.png', hero_name='Dio', colorkey=-1)],
 
-    def guard(self):
-        self.is_guarding = True
+                'guard': [load_image('dio_guard_1.png', hero_name='Dio', colorkey=-1),
+                          load_image('dio_guard_2.png', hero_name='Dio', colorkey=-1),
+                          load_image('dio_guard_3.png', hero_name='Dio', colorkey=-1),
+                          load_image('dio_guard_4.png', hero_name='Dio', colorkey=-1)],
 
-    def walk(self):
-        self.is_walking = True
+                'walk': [load_image('dio_walking_1.png', hero_name='Dio', colorkey=-1),
+                         load_image('dio_walking_2.png', hero_name='Dio', colorkey=-1),
+                         load_image('dio_walking_3.png', hero_name='Dio', colorkey=-1),
+                         load_image('dio_walking_4.png', hero_name='Dio', colorkey=-1),
+                         load_image('dio_walking_7.png', hero_name='Dio', colorkey=-1),
+                         load_image('dio_walking_8.png', hero_name='Dio', colorkey=-1)],
 
-    def intro(self):
-        self.is_intro = True
+                'intro': [load_image('dio_stance.png', hero_name='Dio', colorkey=-1),
+                          load_image('dio_intro_5.png', hero_name='Dio', colorkey=-1)],
 
-    def lose(self):
-        self.is_losing = True
+                'lose': [load_image('dio_lose_1.png', hero_name='Dio', colorkey=-1),
+                         load_image('dio_lose_2.png', hero_name='Dio', colorkey=-1),
+                         load_image('dio_lose_3.png', hero_name='Dio', colorkey=-1),
+                         load_image('dio_lose_4.png', hero_name='Dio', colorkey=-1),
+                         load_image('dio_lose_5.png', hero_name='Dio', colorkey=-1),
+                         load_image('dio_lose_6.png', hero_name='Dio', colorkey=-1)],
 
-    def win(self):
-        self.is_winning = True
+                'win': [load_image('dio_win_1.png', hero_name='Dio', colorkey=-1),
+                        load_image('dio_win_2.png', hero_name='Dio', colorkey=-1),
+                        load_image('dio_win_3.png', hero_name='Dio', colorkey=-1),
+                        load_image('dio_win_4.png', hero_name='Dio', colorkey=-1)],
 
-    def ult(self):
-        self.is_ulting = True
+                'ult': [load_image('dio_ult_1.png', hero_name='Dio', colorkey=-1),
+                        load_image('dio_ult_1.png', hero_name='Dio', colorkey=-1),
+                        load_image('dio_ult_1.png', hero_name='Dio', colorkey=-1),
+                        load_image('dio_ult_2.png', hero_name='Dio', colorkey=-1),
+                        load_image('dio_ult_2.png', hero_name='Dio', colorkey=-1),
+                        load_image('dio_ult_2.png', hero_name='Dio', colorkey=-1)],
 
-    def damaged(self):
-        self.is_damaged = True
+                'damaged': [load_image('dio_damaged_1.png', hero_name='Dio', colorkey=-1),
+                            load_image('dio_damaged_3.png', hero_name='Dio', colorkey=-1)]},
 
-    def flipped(self):
-        if not self.is_flipped:
-            self.is_flipped = True
-            print(0)
-        elif self.is_flipped:
-            self.is_flipped = False
-            print(1)
+            1: {'base': load_image("dio_stance.png", hero_name='Dio', flipped=1, colorkey=-1),
 
-    def update(self, *args, **kwargs):
-        if not self.is_flipped:
-            if self.is_jumping:
-                image_dio = [load_image("C:\Коды\pygame\data\Dio\dio_jump_1.png", colorkey=-1),
-                             load_image("C:\Коды\pygame\data\Dio\dio_jump_2.png", colorkey=-1),
-                             load_image("C:\Коды\pygame\data\Dio\dio_jump_3.png", colorkey=-1),
-                             load_image("C:\Коды\pygame\data\Dio\dio_jump_4.png", colorkey=-1),
-                             load_image("C:\Коды\pygame\data\Dio\dio_jump_5.png", colorkey=-1)]
-                self.count += 1
-                if self.count >= len(image_dio):
-                    self.count = 0
-                    self.image = self.base
-                    self.is_jumping = False
-                else:
-                    clock.tick(3)
-                    self.image = image_dio[self.count]
+                'jump': [load_image('dio_jump_1.png', hero_name='Dio', flipped=1, colorkey=-1),
+                         load_image('dio_jump_2.png', hero_name='Dio', flipped=1, colorkey=-1),
+                         load_image('dio_jump_3.png', hero_name='Dio', flipped=1, colorkey=-1),
+                         load_image('dio_jump_4.png', hero_name='Dio', flipped=1, colorkey=-1),
+                         load_image('dio_jump_5.png', hero_name='Dio', flipped=1, colorkey=-1),
+                         load_image('dio_jump_5.png', hero_name='Dio', flipped=1, colorkey=-1)],
 
-            if self.is_guarding:
-                image_dio = [load_image("C:\Коды\pygame\data\Dio\dio_guard_1.png", colorkey=-1),
-                             load_image("C:\Коды\pygame\data\Dio\dio_guard_2.png", colorkey=-1),
-                             load_image("C:\Коды\pygame\data\Dio\dio_guard_3.png", colorkey=-1),
-                             load_image("C:\Коды\pygame\data\Dio\dio_guard_3.png", colorkey=-1)]
-                self.count += 1
-                if self.count >= len(image_dio):
-                    self.count = 0
-                    self.image = self.base
-                    self.is_guarding = False
-                else:
-                    clock.tick(5)
-                    self.image = image_dio[self.count]
+                'guard': [load_image('dio_guard_1.png', hero_name='Dio', flipped=1, colorkey=-1),
+                          load_image('dio_guard_2.png', hero_name='Dio', flipped=1, colorkey=-1),
+                          load_image('dio_guard_3.png', hero_name='Dio', flipped=1, colorkey=-1),
+                          load_image('dio_guard_4.png', hero_name='Dio', flipped=1, colorkey=-1)],
 
-            if self.is_walking:
-                image_dio = [load_image("C:\Коды\pygame\data\Dio\dio_walking_1.png", colorkey=-1),
-                             load_image("C:\Коды\pygame\data\Dio\dio_walking_2.png", colorkey=-1),
-                             load_image("C:\Коды\pygame\data\Dio\dio_walking_3.png", colorkey=-1),
-                             load_image("C:\Коды\pygame\data\Dio\dio_walking_4.png", colorkey=-1),
-                             load_image("C:\Коды\pygame\data\Dio\dio_walking_5.png", colorkey=-1),
-                             load_image("C:\Коды\pygame\data\Dio\dio_walking_6.png", colorkey=-1),
-                             load_image("C:\Коды\pygame\data\Dio\dio_walking_7.png", colorkey=-1),
-                             load_image("C:\Коды\pygame\data\Dio\dio_walking_8.png", colorkey=-1)]
-                self.count += 1
-                if self.count >= len(image_dio):
-                    self.count = 0
-                    self.image = self.base
-                    self.is_walking = False
-                else:
-                    clock.tick(5)
-                    self.image = image_dio[self.count]
-                    self.rect.x += 5
+                'walk': [load_image('dio_walking_1.png', hero_name='Dio', flipped=1, colorkey=-1),
+                         load_image('dio_walking_2.png', hero_name='Dio', flipped=1, colorkey=-1),
+                         load_image('dio_walking_3.png', hero_name='Dio', flipped=1, colorkey=-1),
+                         load_image('dio_walking_4.png', hero_name='Dio', flipped=1, colorkey=-1),
+                         load_image('dio_walking_7.png', hero_name='Dio', flipped=1, colorkey=-1),
+                         load_image('dio_walking_8.png', hero_name='Dio', flipped=1, colorkey=-1)],
 
-            if self.is_intro:
-                image_dio = [load_image("C:\Коды\pygame\data\Dio\dio_intro_1.png", colorkey=-1),
-                             load_image("C:\Коды\pygame\data\Dio\dio_intro_2.jpg", colorkey=-1),
-                             load_image("C:\Коды\pygame\data\Dio\dio_intro_3.jpg", colorkey=-1),
-                             load_image("C:\Коды\pygame\data\Dio\dio_intro_4.png", colorkey=-1),
-                             load_image("C:\Коды\pygame\data\Dio\dio_intro_5.png", colorkey=-1)]
-                self.count += 1
-                if self.count >= len(image_dio):
-                    self.count = 0
-                    self.image = self.base
-                    self.is_intro = False
-                else:
-                    clock.tick(3)
-                    self.image = image_dio[self.count]
+                'intro': [load_image('dio_stance.png', hero_name='Dio', flipped=1, colorkey=-1),
+                          load_image('dio_intro_5.png', hero_name='Dio', flipped=1, colorkey=-1)],
 
-            if self.is_losing:
-                image_dio = [load_image("C:\Коды\pygame\data\Dio\dio_lose_1.png", colorkey=-1),
-                             load_image("C:\Коды\pygame\data\Dio\dio_lose_2.png", colorkey=-1),
-                             load_image("C:\Коды\pygame\data\Dio\dio_lose_3.png", colorkey=-1),
-                             load_image("C:\Коды\pygame\data\Dio\dio_lose_4.png", colorkey=-1),
-                             load_image("C:\Коды\pygame\data\Dio\dio_lose_5.png", colorkey=-1),
-                             load_image("C:\Коды\pygame\data\Dio\dio_lose_6.png", colorkey=-1)]
-                self.count += 1
-                if self.count >= len(image_dio):
-                    self.count = 0
-                    self.is_losing = False
-                else:
-                    clock.tick(4)
-                    self.image = image_dio[self.count]
+                'lose': [load_image('dio_lose_1.png', hero_name='Dio', flipped=1, colorkey=-1),
+                         load_image('dio_lose_2.png', hero_name='Dio', flipped=1, colorkey=-1),
+                         load_image('dio_lose_3.png', hero_name='Dio', flipped=1, colorkey=-1),
+                         load_image('dio_lose_4.png', hero_name='Dio', flipped=1, colorkey=-1),
+                         load_image('dio_lose_5.png', hero_name='Dio', flipped=1, colorkey=-1),
+                         load_image('dio_lose_6.png', hero_name='Dio', flipped=1, colorkey=-1)],
 
-            if self.is_winning:
-                image_dio = [load_image("C:\Коды\pygame\data\Dio\dio_win_1.png", colorkey=-1),
-                             load_image("C:\Коды\pygame\data\Dio\dio_win_2.png", colorkey=-1),
-                             load_image("C:\Коды\pygame\data\Dio\dio_win_3.png", colorkey=-1),
-                             load_image("C:\Коды\pygame\data\Dio\dio_win_4.png", colorkey=-1)]
-                self.count += 1
-                if self.count >= len(image_dio):
-                    self.count = 0
-                    self.is_winning = False
-                else:
-                    clock.tick(4)
-                    self.image = image_dio[self.count]
+                'win': [load_image('dio_win_1.png', hero_name='Dio', flipped=1, colorkey=-1),
+                        load_image('dio_win_2.png', hero_name='Dio', flipped=1, colorkey=-1),
+                        load_image('dio_win_3.png', hero_name='Dio', flipped=1, colorkey=-1),
+                        load_image('dio_win_4.png', hero_name='Dio', flipped=1, colorkey=-1)],
 
-            if self.is_ulting:
-                image_dio = [load_image("C:\Коды\pygame\data\Dio\dio_ult_1.png", colorkey=-1),
-                             load_image("C:\Коды\pygame\data\Dio\dio_ult_2.png", colorkey=-1),
-                             load_image("C:\Коды\pygame\data\Dio\dio_ult_3.png", colorkey=-1)]
-                self.count += 1
-                if self.count >= len(image_dio):
-                    self.count = 0
-                    self.image = self.base
-                    self.is_ulting = False
-                else:
-                    clock.tick(10)
-                    self.image = image_dio[self.count]
+                'ult': [load_image('dio_ult_1.png', hero_name='Dio', flipped=1, colorkey=-1),
+                        load_image('dio_ult_1.png', hero_name='Dio', flipped=1, colorkey=-1),
+                        load_image('dio_ult_1.png', hero_name='Dio', flipped=1, colorkey=-1),
+                        load_image('dio_ult_2.png', hero_name='Dio', flipped=1, colorkey=-1),
+                        load_image('dio_ult_2.png', hero_name='Dio', flipped=1, colorkey=-1),
+                        load_image('dio_ult_2.png', hero_name='Dio', flipped=1, colorkey=-1)],
 
-            if self.is_damaged:
-                image_dio = [load_image("C:\Коды\pygame\data\Dio\dio_damaged_1.png", colorkey=-1),
-                             load_image("C:\Коды\pygame\data\Dio\dio_damaged_3.png", colorkey=-1),
-                             load_image("C:\Коды\pygame\data\Dio\dio_damaged_4.png", colorkey=-1)]
-                self.count += 1
-                if self.count >= len(image_dio):
-                    self.count = 0
-                    self.is_damaged = False
-                else:
-                    clock.tick(4)
-                    self.image = image_dio[self.count]
-        else:
-            self.image = pygame.transform.flip(self.base, True, False)
-            if self.is_jumping:
-                image_dio = [
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\dio_jump_1.png", colorkey=-1), True,
-                                          False),
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\dio_jump_2.png", colorkey=-1), True,
-                                          False),
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\dio_jump_3.png", colorkey=-1), True,
-                                          False),
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\dio_jump_4.png", colorkey=-1), True,
-                                          False),
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\dio_jump_5.png", colorkey=-1), True,
-                                          False)
-                ]
-                self.count += 1
-                if self.count >= len(image_dio):
-                    self.count = 0
-                    self.image = pygame.transform.flip(self.base, True, False)
-                    self.is_jumping = False
-                else:
-                    clock.tick(4)
-                    self.image = image_dio[self.count]
-
-            if self.is_guarding:
-                image_dio = [
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\dio_guard_1.png", colorkey=-1),
-                                          True, False),
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\dio_guard_2.png", colorkey=-1),
-                                          True, False),
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\dio_guard_3.png", colorkey=-1),
-                                          True, False),
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\dio_guard_4.png", colorkey=-1),
-                                          True, False)]
-                self.count += 1
-                if self.count >= len(image_dio):
-                    self.count = 0
-                    self.image = pygame.transform.flip(self.base, True, False)
-                    self.is_guarding = False
-                else:
-                    clock.tick(5)
-                    self.image = image_dio[self.count]
-
-            if self.is_walking:
-                image_dio = [
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\dio_walking_1.png", colorkey=-1), True,
-                                          False),
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\dio_walking_2.png", colorkey=-1), True,
-                                          False),
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\dio_walking_3.png", colorkey=-1), True,
-                                          False),
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\dio_walking_4.png", colorkey=-1), True,
-                                          False),
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\dio_walking_5.png", colorkey=-1), True,
-                                          False),
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\dio_walking_6.png", colorkey=-1), True,
-                                          False),
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\dio_walking_7.png", colorkey=-1), True,
-                                          False),
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\dio_walking_8.png", colorkey=-1), True,
-                                          False)
-                ]
-                self.count += 1
-                if self.count >= len(image_dio):
-                    self.count = 0
-                    self.image = pygame.transform.flip(self.base, True, False)
-                    self.is_walking = False
-                else:
-                    clock.tick(5)
-                    self.image = image_dio[self.count]
-                    self.rect.x -= 5
-
-            if self.is_losing:
-                image_dio = [
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\dio_lose_1.png", colorkey=-1), True,
-                                          False),
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\dio_lose_2.png", colorkey=-1), True,
-                                          False),
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\dio_lose_3.png", colorkey=-1), True,
-                                          False),
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\dio_lose_4.png", colorkey=-1), True,
-                                          False),
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\dio_lose_5.png", colorkey=-1), True,
-                                          False),
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\dio_lose_6.png", colorkey=-1), True,
-                                          False)
-                ]
-                self.count += 1
-                if self.count >= len(image_dio):
-                    self.count = 0
-                    self.is_losing = False
-                else:
-                    clock.tick(4)
-                    self.image = image_dio[self.count]
-
-            if self.is_winning:
-                image_dio = [
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\dio_win_1.png", colorkey=-1), True,
-                                          False),
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\dio_win_2.png", colorkey=-1), True,
-                                          False),
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\dio_win_3.png", colorkey=-1), True,
-                                          False),
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\dio_win_4.png", colorkey=-1), True,
-                                          False)
-                ]
-                self.count += 1
-                if self.count >= len(image_dio):
-                    self.count = 0
-                    self.is_winning = False
-                else:
-                    clock.tick(4)
-                    self.image = image_dio[self.count]
-
-            if self.is_ulting:
-                image_dio = [
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\dio_ult_1.png", colorkey=-1),
-                                          True, False),
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\dio_ult_2.png", colorkey=-1),
-                                          True, False),
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\dio_ult_3.png", colorkey=-1),
-                                          True, False)
-                ]
-                self.count += 1
-                if self.count >= len(image_dio):
-                    self.count = 0
-                    self.image = self.base
-                    self.is_ulting = False
-                else:
-                    clock.tick(10)
-                    self.image = image_dio[self.count]
-
-            if self.is_damaged:
-                image_dio = [
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\dio_damaged_1.png", colorkey=-1),
-                                          True, False),
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\dio_damaged_3.png", colorkey=-1),
-                                          True, False),
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\dio_damaged_4.png", colorkey=-1),
-                                          True, False)
-                ]
-                self.count += 1
-                if self.count >= len(image_dio):
-                    self.count = 0
-                    self.is_damaged = False
-                else:
-                    clock.tick(4)
-                    self.image = image_dio[self.count]
+                'damaged': [load_image('dio_damaged_1.png', hero_name='Dio', flipped=1, colorkey=-1),
+                            load_image('dio_damaged_3.png', hero_name='Dio', flipped=1, colorkey=-1)]}
+        }
 
 
 class TheWorld(Dio, pygame.sprite.Sprite):
     def __init__(self, *group):
         super().__init__(*group)
-        self.image = load_image("C:\Коды\pygame\data\Madara\empty.png", colorkey=-1)
-        self.base = load_image("C:\Коды\pygame\data\Dio\Theworld_stance.png", colorkey=-1)
+        self.image = load_image("empty.png", colorkey=-1)
+        self.base = load_image("empty.png", colorkey=-1)
         self.rect = self.image.get_rect()
-        self.rect.x = dio.rect.x + 50
+        self.rect.x = 0
         self.rect.y = 0
         self.is_ulting = False
         self.is_attacking = False
@@ -345,8 +124,47 @@ class TheWorld(Dio, pygame.sprite.Sprite):
 
         self.count = -1
 
-    def stand(self):
-        self.is_standing = True
+        self.images = {
+            0: {'base': load_image("Theworld_stance.png", hero_name='Dio', colorkey=-1),
+
+                'attack': [load_image("Theworld_attack_1.png", hero_name='Dio', colorkey=-1),
+                           load_image("Theworld_attack_2.png", hero_name='Dio', colorkey=-1),
+                           load_image("Theworld_attack_3.png", hero_name='Dio', colorkey=-1),
+                           load_image("Theworld_attack_4.png", hero_name='Dio', colorkey=-1)],
+
+                'strong_attack': [load_image("Theworld_strong_attack_1.png", hero_name='Dio', colorkey=-1),
+                                  load_image("Theworld_strong_attack_2.png", hero_name='Dio', colorkey=-1),
+                                  load_image("Theworld_strong_attack_2.png", hero_name='Dio', colorkey=-1),
+                                  load_image("Theworld_strong_attack_3.png", hero_name='Dio', colorkey=-1),
+                                  load_image("Theworld_strong_attack_3.png", hero_name='Dio', colorkey=-1),
+                                  load_image("Theworld_strong_attack_4.png", hero_name='Dio', colorkey=-1)],
+                'ult': [load_image("Theworld_ult_1.png", hero_name='Dio', colorkey=-1),
+                        load_image("Theworld_ult_1.png", hero_name='Dio', colorkey=-1),
+                        load_image("Theworld_ult_1.png", hero_name='Dio', colorkey=-1),
+                        load_image("Theworld_ult_2.png", hero_name='Dio', colorkey=-1),
+                        load_image("Theworld_ult_2.png", hero_name='Dio', colorkey=-1),
+                        load_image("Theworld_ult_2.png", hero_name='Dio', colorkey=-1)]},
+
+            1: {'base': load_image("Theworld_stance.png", hero_name='Dio', flipped=1, colorkey=-1),
+
+                'attack': [load_image("Theworld_attack_1.png", hero_name='Dio', flipped=1, colorkey=-1),
+                           load_image("Theworld_attack_2.png", hero_name='Dio', flipped=1, colorkey=-1),
+                           load_image("Theworld_attack_3.png", hero_name='Dio', flipped=1, colorkey=-1),
+                           load_image("Theworld_attack_4.png", hero_name='Dio', flipped=1, colorkey=-1)],
+
+                'strong_attack': [load_image("Theworld_strong_attack_1.png", hero_name='Dio', flipped=1, colorkey=-1),
+                                  load_image("Theworld_strong_attack_2.png", hero_name='Dio', flipped=1, colorkey=-1),
+                                  load_image("Theworld_strong_attack_2.png", hero_name='Dio', flipped=1, colorkey=-1),
+                                  load_image("Theworld_strong_attack_3.png", hero_name='Dio', flipped=1, colorkey=-1),
+                                  load_image("Theworld_strong_attack_3.png", hero_name='Dio', flipped=1, colorkey=-1),
+                                  load_image("Theworld_strong_attack_4.png", hero_name='Dio', flipped=1, colorkey=-1)],
+                'ult': [load_image("Theworld_ult_1.png", hero_name='Dio', flipped=1, colorkey=-1),
+                        load_image("Theworld_ult_1.png", hero_name='Dio', flipped=1, colorkey=-1),
+                        load_image("Theworld_ult_1.png", hero_name='Dio', flipped=1, colorkey=-1),
+                        load_image("Theworld_ult_2.png", hero_name='Dio', flipped=1, colorkey=-1),
+                        load_image("Theworld_ult_2.png", hero_name='Dio', flipped=1, colorkey=-1),
+                        load_image("Theworld_ult_2.png", hero_name='Dio', flipped=1, colorkey=-1)]}
+        }
 
     def ult(self):
         self.is_ulting = True
@@ -361,121 +179,54 @@ class TheWorld(Dio, pygame.sprite.Sprite):
         self.is_walking = True
 
     def update(self):
-        if not self.is_flipped:
-            if self.is_standing:
+        if self.is_ulting:
+            if not self.is_flipped:
+                image_theworld = self.images[0]['ult']
+            else:
+                image_theworld = self.images[1]['ult']
+            self.count += 1
+            if self.count >= len(image_theworld):
+                self.count = 0
                 self.image = self.base
+                self.is_ulting = False
+            else:
+                clock.tick(10)
+                self.image = image_theworld[self.count]
 
-            if self.is_ulting:
-                image_theworld = [load_image("C:\Коды\pygame\data\Dio\Theworld_ult_1.png", colorkey=-1),
-                                  load_image("C:\Коды\pygame\data\Dio\Theworld_ult_2.png", colorkey=-1),
-                                  load_image("C:\Коды\pygame\data\Dio\Theworld_ult_2.png", colorkey=-1)]
-                self.count += 1
-                if self.count >= len(image_theworld):
-                    self.count = 0
-                    self.image = self.base
-                    self.is_ulting = False
-                else:
-                    clock.tick(10)
-                    self.image = image_theworld[self.count]
+        if self.is_attacking:
+            if not self.is_flipped:
+                image_theworld = self.images[0]['attack']
+            else:
+                image_theworld = self.images[1]['attack']
+            self.count += 1
+            if self.count >= len(image_theworld):
+                self.count = 0
+                self.image = self.base
+                self.is_attacking = False
+            else:
+                clock.tick(5)
+                self.image = image_theworld[self.count]
 
-            if self.is_attacking:
-                image_theworld = [load_image("C:\Коды\pygame\data\Dio\Theworld_attack_1.png", colorkey=-1),
-                                  load_image("C:\Коды\pygame\data\Dio\Theworld_attack_2.png", colorkey=-1),
-                                  load_image("C:\Коды\pygame\data\Dio\Theworld_attack_3.png", colorkey=-1),
-                                  load_image("C:\Коды\pygame\data\Dio\Theworld_attack_4.png", colorkey=-1)]
-                self.count += 1
-                if self.count >= len(image_theworld):
-                    self.count = 0
-                    self.image = self.base
-                    self.is_attacking = False
-                else:
-                    clock.tick(5)
-                    self.image = image_theworld[self.count]
+        if self.is_strong_attacking:
+            if not self.is_flipped:
+                image_theworld = self.images[0]['strong_attack']
+            else:
+                image_theworld = self.images[1]['strong_attack']
+            self.count += 1
+            if self.count >= len(image_theworld):
+                self.count = 0
+                self.image = self.base
+                self.is_strong_attacking = False
+            else:
+                clock.tick(5)
+                self.image = image_theworld[self.count]
 
-            if self.is_strong_attacking:
-                image_theworld = [load_image("C:\Коды\pygame\data\Dio\Theworld_strong_attack_1.png", colorkey=-1),
-                                  load_image("C:\Коды\pygame\data\Dio\Theworld_strong_attack_2.png", colorkey=-1),
-                                  load_image("C:\Коды\pygame\data\Dio\Theworld_strong_attack_3.png", colorkey=-1),
-                                  load_image("C:\Коды\pygame\data\Dio\Theworld_strong_attack_4.png", colorkey=-1)]
-                self.count += 1
-                if self.count >= len(image_theworld):
-                    self.count = 0
-                    self.image = self.base
-                    self.is_strong_attacking = False
-                else:
-                    clock.tick(5)
-                    self.image = image_theworld[self.count]
-
-            if self.is_walking:
-                for i in range(8):
-                    self.rect.x += 5
+        if self.is_walking:
+            if not self.is_flipped:
+                self.rect.x += 15
                 self.is_walking = False
-        else:
-            self.base = pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\Theworld_stance.png", colorkey=-1), True, False)
-
-            if self.is_standing:
-                self.image = self.base
-
-            if self.is_ulting:
-                image_theworld = [
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\Theworld_ult_1.png", colorkey=-1), True,
-                                          False),
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\Theworld_ult_2.png", colorkey=-1), True,
-                                          False),
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\Theworld_ult_2.png", colorkey=-1), True,
-                                          False)]
-                self.count += 1
-                if self.count >= len(image_theworld):
-                    self.count = 0
-                    self.image = self.base
-                    self.is_ulting = False
-                else:
-                    clock.tick(10)
-                    self.image = image_theworld[self.count]
-
-            if self.is_attacking:
-                image_theworld = [
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\Theworld_attack_1.png", colorkey=-1),
-                                          True, False),
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\Theworld_attack_2.png", colorkey=-1),
-                                          True, False),
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\Theworld_attack_3.png", colorkey=-1),
-                                          True, False),
-                    pygame.transform.flip(load_image("C:\Коды\pygame\data\Dio\Theworld_attack_4.png", colorkey=-1),
-                                          True, False)]
-                self.count += 1
-                if self.count >= len(image_theworld):
-                    self.count = 0
-                    self.image = self.base
-                    self.is_attacking = False
-                else:
-                    clock.tick(5)
-                    self.image = image_theworld[self.count]
-
-            if self.is_strong_attacking:
-                image_theworld = [pygame.transform.flip(
-                    load_image("C:\Коды\pygame\data\Dio\Theworld_strong_attack_1.png", colorkey=-1), True, False),
-                    pygame.transform.flip(
-                        load_image("C:\Коды\pygame\data\Dio\Theworld_strong_attack_2.png", colorkey=-1),
-                        True, False),
-                    pygame.transform.flip(
-                        load_image("C:\Коды\pygame\data\Dio\Theworld_strong_attack_3.png", colorkey=-1),
-                        True, False),
-                    pygame.transform.flip(
-                        load_image("C:\Коды\pygame\data\Dio\Theworld_strong_attack_4.png", colorkey=-1),
-                        True, False)]
-                self.count += 1
-                if self.count >= len(image_theworld):
-                    self.count = 0
-                    self.image = self.base
-                    self.is_strong_attacking = False
-                else:
-                    clock.tick(5)
-                    self.image = image_theworld[self.count]
-
-            if self.is_walking:
-                for i in range(9):
-                    self.rect.x += 5
+            else:
+                self.rect.x -= 15
                 self.is_walking = False
 
 
@@ -501,8 +252,6 @@ while running:
         dio.jump()
     elif keys[pygame.K_e]:
         dio.guard()
-    elif keys[pygame.K_q]:
-        theworld.stand()
     elif keys[pygame.K_d]:
         dio.walk()
         theworld.walk()

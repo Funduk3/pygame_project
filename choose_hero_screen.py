@@ -1,7 +1,7 @@
 import pygame
 from load_image import load_image
-import sys
-import os
+import aizen, madara, meruem, dio, eren
+
 
 FPS = 50
 pygame.init()
@@ -38,7 +38,7 @@ pygame.draw.line(screen, pygame.Color('red'), (670, 400), (670, 300), width=5)
 f1 = pygame.font.Font('data/joystix monospace.ttf', 36)
 text1 = f1.render('Выбери персонажа', True, (180, 0, 0))
 
-background = pygame.transform.scale(load_image("context.jpg", hero_name='started_screen'), (800, 450))
+background = pygame.transform.scale(load_image("fon.jpg", hero_name='started_screen'), (800, 450))
 aizen_ava = pygame.transform.scale(load_image("Aizen_ava.jpg", hero_name='started_screen'), (100, 100))
 madara_ava = pygame.transform.scale(load_image("madara_ava.png", hero_name='started_screen'), (100, 100))
 dio_ava = pygame.transform.scale(load_image("dio_ava.jpg", hero_name='started_screen'), (100, 100))
@@ -71,35 +71,35 @@ screen.blit(text1, (150, 10))
 pygame.mixer.music.play()
 
 
-def pers1_rect(color):
+def aizen_rect_f(color):
     pygame.draw.line(screen, pygame.Color(color), (130, 400), (230, 400), width=5)
     pygame.draw.line(screen, pygame.Color(color), (130, 300), (230, 300), width=5)
     pygame.draw.line(screen, pygame.Color(color), (130, 400), (130, 300), width=5)
     pygame.draw.line(screen, pygame.Color(color), (230, 400), (230, 300), width=5)
 
 
-def pers2_rect(color):
+def madara_rect_f(color):
     pygame.draw.line(screen, pygame.Color(color), (240, 400), (340, 400), width=5)
     pygame.draw.line(screen, pygame.Color(color), (240, 300), (340, 300), width=5)
     pygame.draw.line(screen, pygame.Color(color), (240, 400), (240, 300), width=5)
     pygame.draw.line(screen, pygame.Color(color), (340, 400), (340, 300), width=5)
 
 
-def pers3_rect(color):
+def dio_rect_f(color):
     pygame.draw.line(screen, pygame.Color(color), (350, 400), (450, 400), width=5)
     pygame.draw.line(screen, pygame.Color(color), (350, 300), (450, 300), width=5)
     pygame.draw.line(screen, pygame.Color(color), (350, 400), (350, 300), width=5)
     pygame.draw.line(screen, pygame.Color(color), (450, 400), (450, 300), width=5)
 
 
-def pers4_rect(color):
+def eren_rect_f(color):
     pygame.draw.line(screen, pygame.Color(color), (460, 400), (560, 400), width=5)
     pygame.draw.line(screen, pygame.Color(color), (460, 300), (560, 300), width=5)
     pygame.draw.line(screen, pygame.Color(color), (460, 400), (460, 300), width=5)
     pygame.draw.line(screen, pygame.Color(color), (560, 400), (560, 300), width=5)
 
 
-def pers5_rect(color):
+def meruem_rect_x(color):
     pygame.draw.line(screen, pygame.Color(color), (570, 400), (670, 400), width=5)
     pygame.draw.line(screen, pygame.Color(color), (570, 300), (670, 300), width=5)
     pygame.draw.line(screen, pygame.Color(color), (570, 400), (570, 300), width=5)
@@ -130,7 +130,7 @@ def choice_pers():
     return pers
 
 
-func_numbers = [pers1_rect, pers2_rect, pers3_rect, pers4_rect, pers5_rect]
+func_numbers = [aizen_rect_f, madara_rect_f, dio_rect_f, eren_rect_f, meruem_rect_x]
 first_pers = False
 second_pers = False
 
@@ -139,6 +139,13 @@ sound_of_flag = True
 running = True
 while running:
     for event in pygame.event.get():
+        screen.blit(background, (0, 0))
+        screen.blit(aizen_ava, (130, 300))
+        screen.blit(madara_ava, (240, 300))
+        screen.blit(dio_ava, (350, 300))
+        screen.blit(eren_ava, (460, 300))
+        screen.blit(example, (570, 300))
+        screen.blit(text1, (150, 10))
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -146,27 +153,77 @@ while running:
                 if not first_pers:
                     first_pers = choice_pers()
                     if first_pers == 1:
-                        pers1_rect('red')
+                        aizen_rect_f('red')
+                        aiz = aizen.Aizen(all_sprites)
+                        aiz.rect.x = 230
+                        aiz.rect.y = 150
+                        aiz.walk()
+                        aiz.intro()
                     elif first_pers == 2:
-                        pers2_rect('red')
+                        madara_rect_f('red')
+                        madar = madara.Madara(all_sprites)
+                        madar.rect.x = 230
+                        madar.rect.y = 150
+                        madar.walk()
+                        madar.intro()
                     elif first_pers == 3:
-                        pers3_rect('red')
+                        dio_rect_f('red')
+                        dioo = dio.Dio(all_sprites)
+                        dioo.rect.x = 230
+                        dioo.rect.y = 150
+                        dioo.walk()
+                        dioo.intro()
                     elif first_pers == 4:
-                        pers4_rect('red')
+                        eren_rect_f('red')
+                        ere = eren.Eren(all_sprites)
+                        ere.rect.x = 230
+                        ere.rect.y = 150
+                        ere.walk()
+                        ere.intro()
                     elif first_pers == 5:
-                        pers5_rect('red')
+                        meruem_rect_x('red')
+                        mer = meruem.Meruem(all_sprites)
+                        mer.rect.x = 230
+                        mer.rect.y = 150
+                        mer.walk()
+                        mer.intro()
                 elif not second_pers:
                     second_pers = choice_pers()
                     if second_pers == 1:
-                        pers1_rect('blue')
+                        aizen_rect_f('blue')
+                        aizz = aizen.Aizen(all_sprites)
+                        aizz.rect.x = 520
+                        aizz.rect.y = 150
+                        aizz.flipped()
+                        aizz.intro()
                     elif second_pers == 2:
-                        pers2_rect('blue')
+                        madara_rect_f('blue')
+                        mada = madara.Madara(all_sprites)
+                        mada.rect.x = 520
+                        mada.rect.y = 150
+                        mada.flipped()
+                        mada.intro()
                     elif second_pers == 3:
-                        pers3_rect('blue')
+                        dio_rect_f('blue')
+                        di = dio.Dio(all_sprites)
+                        di.rect.x = 520
+                        di.rect.y = 150
+                        di.flipped()
+                        di.intro()
                     elif second_pers == 4:
-                        pers4_rect('blue')
+                        eren_rect_f('blue')
+                        erenn = eren.Eren(all_sprites)
+                        erenn.rect.x = 520
+                        erenn.rect.y = 150
+                        erenn.flipped()
+                        erenn.intro()
                     elif second_pers == 5:
-                        pers5_rect('blue')
+                        meruem_rect_x('blue')
+                        mer = meruem.Meruem(all_sprites)
+                        mer.rect.x = 520
+                        mer.rect.y = 150
+                        mer.flipped()
+                        mer.intro()
                 coords = pygame.mouse.get_pos()
                 if 760 < coords[0] < 800 and 0 < coords[1] < 40:
                     if sound_of_flag:
@@ -197,8 +254,8 @@ while running:
         check_coords_color(coords, 460, 300, 'blue', 4)
         check_coords_color(coords, 570, 300, 'blue', 5)
 
-    all_sprites.update()
     clock.tick(30)
+    all_sprites.update()
     all_sprites.draw(screen)
     pygame.display.flip()
 pygame.quit()

@@ -230,44 +230,46 @@ class TheWorld(Dio, pygame.sprite.Sprite):
                 self.is_walking = False
 
 
-pygame.init()
-size = width, height = 860, 520
-screen = pygame.display.set_mode(size)
-all_sprites = pygame.sprite.Group()
-clock = pygame.time.Clock()
+if __name__ == '__main__':
 
-dio = Dio(all_sprites)
-theworld = TheWorld(all_sprites)
+    pygame.init()
+    size = width, height = 860, 520
+    screen = pygame.display.set_mode(size)
+    all_sprites = pygame.sprite.Group()
+    clock = pygame.time.Clock()
 
-running = True
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-    screen.fill((0, 0, 0))
+    dio = Dio(all_sprites)
+    theworld = TheWorld(all_sprites)
 
-    keys = pygame.key.get_pressed()
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill((0, 0, 0))
 
-    if keys[pygame.K_w]:
-        dio.jump()
-    elif keys[pygame.K_e]:
-        dio.guard()
-    elif keys[pygame.K_d]:
-        dio.walk()
-        theworld.walk()
-    elif keys[pygame.K_z]:
-        theworld.attack()
-    elif keys[pygame.K_x]:
-        theworld.strong_attack()
-    elif keys[pygame.K_c]:
-        dio.ult()
-        theworld.ult()
-    elif keys[pygame.K_a]:
-        dio.flipped()
-        theworld.flipped()
+        keys = pygame.key.get_pressed()
 
-    all_sprites.draw(screen)
-    all_sprites.update()
-    pygame.display.flip()
-    clock.tick(30)
-pygame.quit()
+        if keys[pygame.K_w]:
+            dio.jump()
+        elif keys[pygame.K_e]:
+            dio.guard()
+        elif keys[pygame.K_d]:
+            dio.walk()
+            theworld.walk()
+        elif keys[pygame.K_z]:
+            theworld.attack()
+        elif keys[pygame.K_x]:
+            theworld.strong_attack()
+        elif keys[pygame.K_c]:
+            dio.ult()
+            theworld.ult()
+        elif keys[pygame.K_a]:
+            dio.flipped()
+            theworld.flipped()
+
+        all_sprites.draw(screen)
+        all_sprites.update()
+        pygame.display.flip()
+        clock.tick(30)
+    pygame.quit()

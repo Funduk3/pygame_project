@@ -8,6 +8,8 @@ class MainCharacter(pygame.sprite.Sprite):
     def __init__(self, *group):
         super().__init__(*group)
 
+        hp = 100
+
         self.images_damaged = None
         self.images_ult = None
         self.images_win = None
@@ -42,7 +44,7 @@ class MainCharacter(pygame.sprite.Sprite):
         self.is_guarding = False
         self.is_jumping = False
         self.images = {
-            0: {'base': load_image('empty.png', colorkey=-1),
+            0: {'base': [load_image('empty.png', colorkey=-1)],
                 'jump': [load_image('empty.png', colorkey=-1), load_image('empty.png', colorkey=-1),
                          load_image('empty.png', colorkey=-1), load_image('empty.png', colorkey=-1),
                          load_image('empty.png', colorkey=-1), load_image('empty.png', colorkey=-1)],
@@ -63,7 +65,7 @@ class MainCharacter(pygame.sprite.Sprite):
                 'ult': self.ult_images,
                 'damaged': [load_image('empty.png', flipped=1, colorkey=-1),
                             load_image('empty.png', flipped=1, colorkey=-1)]},
-            1: {'base': load_image('empty.png', flipped=1, colorkey=-1),
+            1: {'base': [load_image('empty.png', flipped=1, colorkey=-1)],
                 'jump': [load_image('empty.png', flipped=1, colorkey=-1),
                          load_image('empty.png', flipped=1, colorkey=-1),
                          load_image('empty.png', flipped=1, colorkey=-1),
@@ -216,7 +218,7 @@ class MainCharacter(pygame.sprite.Sprite):
             else:
                 clock.tick(5)
                 self.image = self.images_strong_attack[self.count]
-        
+
         if self.is_intro:
             self.images_intro = self.images[1]['intro']
             self.count += 1

@@ -429,6 +429,7 @@ class Eren(MainCharacter):
                 self.image = self.images_damaged[self.count]
 
 
+clock = pygame.time.Clock()
 if __name__ == '__main__':
     pygame.init()
     size = width, height = 860, 520
@@ -445,7 +446,6 @@ if __name__ == '__main__':
                 running = False
         screen.fill((0, 0, 0))
         keys = pygame.key.get_pressed()
-
         if keys[pygame.K_w]:
             eren.jump()
         elif keys[pygame.K_e]:
